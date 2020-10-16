@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi formulario</title>
+    <link rel="stylesheet" href="./css/style.css"></link>
+    <script type="text/javascript" src="./js/funciones.js"></script>
+    <script type="text/javascript" src="./js/ajax.js"></script>
+
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    
+</head>
+    <body>
+        <!-- <input name="esconderDiv" class="botonMostrarDiv" id="botonMostrarDiv" type="button" tabindex="7" value="Mostrar DIV"/> -->
+    <div class="contenedor" id="contenedor">
+        <!-- <div id="notificacion" class="notificacion"></div> -->
+        <!-- <input id="btnOpen" type="button" value="+"/> -->
+        <div id="loaderImage" class="loaderImage" hidden></div>
+        <div id="div" class="div"  hidden>
+            <div class="divEsconder"><input type="button" value="X" class="btnEsconder" id="btnEsconder" tabindex="6"><span class="infoBtnEsconder">Haga click en la X o presione la tecla Esc</span>
+            </div>
+            <!-- el for lo uso para hacerle click al texto label y que lleve al campo user que en este caso busca el id -->
+            <div class="campos" id="campos" >
+                
+                
+                <label for="nombre">Nombre:</label>
+                <input name="nombre" class="inputSinError" id="nombre" type="text" tabindex="1"placeholder="Nombre..." />
+                
+                <label for="apellido">Apellido:</label>
+                <input name="apellido" class="inputSinError" id="apellido" type="text" tabindex="2" placeholder="Apellido..." />
+                
+                <label for="fecha">Fecha:</label>
+                <input name="fecha" class="inputSinError" id="fecha" type="date" tabindex="3"placeholder="Fecha..." />
+                
+                <label for="sexo">Genero:</label>
+                <div class="radio">
+                    <input type="radio" name="radiobutton" id="sexoFemenino" value="1"> Female 
+                    <input type="radio" name="radiobutton" id="sexoMasculino" value="2"> Male 
+                </div>
+                <!-- <input name="sexo" class="inputSinError inputError" id="sexo" type="text" tabindex="4" placeholder="Tu sexo..." /> -->
+            
+                <div class="botones">
+                    <input name="guardar" class="botonEliminar" id="botonEliminar" type="button" tabindex="5" value="Eliminar"/>
+                    <input name="guardar" class="botonModificar" id="botonModificar" type="button" tabindex="5" value="Modificar"/>
+                </div>
+            </div>
+            
+        </div>
+
+        <div id="listaPersonas" class="listaPersonas">
+            <h3>Lista de personas</h3>
+            
+            <br>
+            <br>
+            <table class="tabla" id="tabla">
+                <thead>
+                    <tr>
+                        <!-- columnas: -->
+                        <th>Nombre</th> 
+                        <th>Cuatrimestre</th>
+                        <th>Fecha de final</th>
+                        <th>Turno</th>
+                    </tr>
+
+                </thead>
+                <tbody id="tcuerpo">
+                    
+                    
+
+                </tbody>
+                <tfoot>
+
+
+                </tfoot>
+
+            </table>
+        </div>
+
+    </div>
+
+</body>
+</html>

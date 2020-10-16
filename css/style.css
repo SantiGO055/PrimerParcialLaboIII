@@ -1,0 +1,297 @@
+
+.loaderImage {
+    position: fixed;
+    
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    left:-10%;
+    background: url('../img/spinner.gif') 50% 50% no-repeat rgb(249,249,249);
+    opacity: .8;
+}
+.contenedor{
+    position: relative;
+}
+.div{
+    background-color: rgb(212, 192, 138);
+    border: none;
+    border-radius: 5px;
+    text-align: left;
+    /*padding: 1px 10% 1px 0px;*/
+    width: 30%;
+    box-shadow: 5px 5px 5px 0px lightslategrey;
+    animation-name: abrir;
+    animation-duration: 1.2s;
+    position: fixed;
+    
+    z-index: 2;
+    left:33%;
+}
+
+
+@keyframes abrir{
+    from{
+        opacity: 0;
+        width: 0%;
+        
+    }
+    to{
+        opacity: 1;
+    }
+}
+
+.positionBody{
+    position: relative;
+    
+} 
+
+h3{
+    position: relative;
+    right: -38%;
+}
+#btnOpen{
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 50%;
+    padding: 3px;
+    width:3rem;
+    height: 3rem;
+    position: fixed;
+    right: 10%;
+    top: 0;
+    margin: 8px 0;
+}
+.notificacionSinError{
+    background:rgb(151, 241, 140);
+    border: 3px solid rgb(34, 75, 10);
+}
+.notificacionConError{
+    background:rgb(219, 67, 67);
+    border: 3px solid rgb(255, 0, 0);
+}
+
+/*Notificacion que sale luego del abm del form*/
+.notificacion{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: content-box;
+    
+    border-radius: 4px;
+    
+    text-align: center;
+    position: fixed;
+    
+    top: 93%;
+    width: 35%;
+    height: 5%;
+    z-index: 4;
+    left:20%;
+    opacity: .8;
+    animation-name: cerrar;
+    animation-duration: 5s;
+    opacity: 0;
+}
+@keyframes cerrar{
+    from{
+        opacity: 2;
+    }
+    to{
+        opacity: 0;
+        display: hidden;
+    }
+}
+.campos{
+    /* border-radius: 3px;
+    border: none; */
+    padding: 1% 1%;
+    margin: 5% 5% 5% 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background-image: url('../img/DoogieDoodle.svg');
+    background-repeat: no-repeat;
+    background-size: 40%;
+    background-position: bottom;
+    background-position-x: right;
+    box-sizing: content-box;
+    
+}
+
+input{
+    box-sizing: content-box;
+}
+input[type=text],input[type=radio]{
+    padding: 1% 30%;
+    margin: 2%;
+    text-align: center;
+    border-radius: 3px;
+    box-sizing: border-box; /*Todo lo que hace el border-box es cuando crece segun el padding y tamaño lo hace crecer hacia adentro*/
+}
+.radio{
+    margin: 3%;
+    padding: 0% 3%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+input[type=date]{
+    padding: 1% 30%;
+    margin: 2%;
+    text-align: center;
+    border-radius: 3px;
+    box-sizing: border-box; /*Todo lo que hace el border-box es cuando crece segun el padding y tamaño lo hace crecer hacia adentro*/
+}
+.botonModificar{
+    background-color: rgba(0, 128, 0, 0.733);
+    color: white;
+    border-radius: 3px;
+    padding: 8px 15%; /* distancia entre margenes de boton y contenido */
+    margin: 8px 5px 8px 0px;/* distancia del elemento completo con los otros elementos */
+    box-shadow: 5px 5px 6px 0px rgb(47, 49, 47);
+    
+    height: 15%; /* alto */
+    position: relative;
+    
+}
+
+.botonEliminar{
+    background-color: rgba(218, 15, 15, 0.733);
+    box-shadow: 5px 5px 6px 0px rgb(47, 49, 47);
+    color: white;
+    border-radius: 3px;
+    padding: 8px 15%;
+    margin: 8px 5px 8px 0px;
+    box-shadow: 5px 5px 6px 0px rgb(47, 49, 47);
+    
+    height: 15%;
+    position: relative;
+}
+
+.botonMostrarDiv{
+    background-color: rgba(0, 128, 0, 0.733);
+    box-shadow: 5px 5px 6px 0px rgb(47, 49, 47);
+    color: white;
+    border-radius: 3px;
+    padding: 8px 15%;
+    margin: 8px 5px 8px 0px;
+    box-shadow: 5px 5px 6px 0px rgb(47, 49, 47);
+
+    text-align: center;
+    height: 15%;
+    position: relative;
+    
+}
+input[type=button]{
+    font-size: 100%;
+    cursor: pointer;
+    text-align: center;
+}
+
+.esconderDiv{
+    padding: 1px;
+    width: 15px;
+    height: 15px;
+    text-align: center;
+    text-decoration: lightgreen;
+    position: absolute;
+    bottom:90%;
+    left:5%;
+    
+}
+.infoBtnEsconder{
+    position: absolute;
+    top: 2%;
+    left: 10%;
+    zoom: 1;
+    opacity: 0;
+    padding: 5px;
+    color: white;
+    background: black;
+    -moz-transition:all ease .8s; /*Transición*/
+    -webkit-transition:all ease .8s ;
+    transition:all ease .8s;
+}
+.divEsconder{
+    position: relative; 
+    margin: 10px auto;
+}
+.divEsconder:hover .infoBtnEsconder{
+    filter: alpha(opacity=80);
+    opacity: .8; /*Al hacer hover sobre la caja hacemos visible los datos*/
+}
+.btnEsconder{
+    background-color: red;
+    border-radius: 6px;
+}
+#botonMostrarDiv{
+    right:-25%;
+}
+.listaPersonas{
+    position: relative;
+    z-index: 1;
+}
+
+.tabla{
+    padding: 0px 20% 8px 5%;
+    width: 100%;
+    position : absolute;
+    animation-duration: 0.5s;
+    animation-name: slidein;
+    
+    animation-direction: alternate;
+}
+@keyframes slidein {
+    from {
+        margin-left:100%;
+        width:300%
+    }
+    
+    to {
+        margin-left:0%;
+        width:100%;
+   }
+}
+th,td{
+    text-align: left;
+    padding: 8px;
+}
+th{
+    background-color: rgb(31, 177, 169);
+    color: white;
+}
+/*para ponerle un color de fondo a uno si y otro no*/
+tr:nth-child(even){
+    background-color: rgb(187, 190, 194);
+}
+
+.boton:hover{
+    background-color:  rgb(14, 71, 14);
+}
+.botonMostrarDiv:hover{
+    background-color: rgb(14, 71, 14);
+}
+.btnEsconder:hover{
+    background-color:  rgb(128, 9, 9);
+}
+.inputSinError{
+    border: none;
+}
+.inputError{
+    border:2px solid red;
+}
+
+
+html{
+    font-family: 'Roboto', sans-serif;
+}
+.scroll-top {
+    position: absolute;
+    top: 120vh;
+    bottom: 2rem;
+    right: 1rem;
+}
