@@ -15,7 +15,7 @@ var personaAux = [];
 function validar(){
     
     var nombre = document.getElementById("nombre");
-    var apellido = document.getElementById("apellido");
+    var cuatrimestre = document.getElementById("cuatrimestre");
     var fecha = document.getElementById("fecha");
     var botonModificar = document.getElementById("botonModificar");
     // var mostrarDiv = document.getElementById("botonMostrarDiv");
@@ -30,7 +30,7 @@ function validar(){
     esconderDiv.addEventListener("click",cerrarDiv);
 
     nombre.addEventListener("blur",validarNombre);
-    apellido.addEventListener("blur",validarApellido);
+    // cuatrimestre.addEventListener("blur",validarCuatrimestre);
     fecha.addEventListener("blur",validarFecha);
     
     //sexo.addEventListener("blur",validarSexo);
@@ -57,7 +57,7 @@ function cerrarDiv(){
 function validarNombre(){
     nombreCheck = document.getElementById("nombre");
     if (nombreCheck.value != "") {
-        if (nombreCheck.value.length < 3) {
+        if (nombreCheck.value.length < 6) {
             document.getElementById("nombre").className = document.getElementById("nombre").className = " inputError";
             return false;
         }
@@ -74,25 +74,26 @@ function validarNombre(){
     
 }
 
-function validarApellido(){
-    apellidoCheck = document.getElementById("apellido");
+// function validarCuatrimestre(){
+//     //TODO validar select
+//     cuatrimestreCheck = document.getElementById("cuatrimestre");
     
-    if (apellidoCheck.value != "") {
-        if (apellidoCheck.value.length < 3 || apellidoCheck.value === "") {
-            document.getElementById("apellido").className = document.getElementById("apellido").className = " inputError";
-            return false;
-        }
-        else{
-            document.getElementById("apellido").className = document.getElementById("apellido").className.replace(" inputError", "inputSinError");
+//     if (apellidoCheck.value != "") {
+//         if (apellidoCheck.value.length < 3 || apellidoCheck.value === "") {
+//             document.getElementById("apellido").className = document.getElementById("apellido").className = " inputError";
+//             return false;
+//         }
+//         else{
+//             document.getElementById("apellido").className = document.getElementById("apellido").className.replace(" inputError", "inputSinError");
             
-            return true;
-        }
-    }
-    else{
-        alert ("Ingrese apellido");
-        return false;
-    }
-}
+//             return true;
+//         }
+//     }
+//     else{
+//         alert ("Ingrese apellido");
+//         return false;
+//     }
+// }
 function validarFecha(){
     
     var f = new Date();
@@ -101,7 +102,7 @@ function validarFecha(){
     // fechaHoy = f.getDate() + "-" + (f.getMonth() +1) + "-" + f.getFullYear();
     var fechaAModif = $("fecha");
     // console.log(fechaAModif);
-    if (!fechaAModif || fechaAModif >= fechaHoy) {
+    if (!fechaAModif || fechaAModif < fechaHoy) {
         document.getElementById("fecha").className = document.getElementById("fecha").className = " inputError";
         
         return false;
@@ -144,7 +145,7 @@ function validarBoton(){
     //     alert("Ingrese campos correctos");
     //     return false;
     // }
-    if (validarNombre() && validarApellido() && validarFecha()) {
+    if (validarNombre() && validarFecha() ) {
         return true;
     }
     else{
@@ -174,12 +175,13 @@ function respuestaGet(){
     
 }
 
-function agregarDatos(id,nombre,cuatrimestre,fechaFinal,turno){
+function agregarDatos(id,nombre,cuatrimestre,fecha,turno){
 
     var row = document.createElement("tr");
 
     row.addEventListener("dblclick",modificarDatos);
     row.setAttribute("id",id);
+    row.setAttribute("cuatrimestre",cuatrimestre);
 
     var colNombre = document.createElement("td");
     // colNombre.addEventListener("dblclick",modificarDatos);
@@ -196,7 +198,7 @@ function agregarDatos(id,nombre,cuatrimestre,fechaFinal,turno){
     row.appendChild(colCuatri);
 
     var colFecha = document.createElement("td");
-    var textFecha = document.createTextNode(fechaFinal);
+    var textFecha = document.createTextNode(fecha);
     // colFecha.addEventListener("dblclick",modificarDatos);
     colFecha.appendChild(textFecha);
     // colFecha.setAttribute("id",id);
@@ -237,13 +239,13 @@ function MostrarDivModificar(){
     document.getElementById("div").hidden = false;
     
 }
-function imprimirRadioButton(sexo){
+function imprimirRadioButton(turno){
     var radio = document.getElementsByName('radiobutton');
 
-    if(sexo === "Female"){
+    if(turno === "Mañana"){
         radio[0].checked = true;
     }
-    else if(sexo === "Male"){
+    else if(turno === "Noche"){
         radio[1].checked = true;
     }
 }
@@ -251,65 +253,87 @@ function obtenerValoresRadioButton(){
     var radio = document.getElementsByName('radiobutton');
 
     if (radio[0].checked == true) {
-        return "Female";
+        return "Mañana";
     }
     else if(radio[1].checked == true){
-        return "Male";
+        return "Noche";
     }
 }
 
-
+function invertirFechaDeServer(fecha){
+    var dia = fecha.substr(0,2);
+    var mes = fecha.substr(3,2);
+    var año = fecha.substr(6,4);
+    var fechaCorrecta = año + "-"+mes+"-"+dia;
+    return fechaCorrecta;
+}
+function invertirFechaHtml(fecha){
+    var año = fecha.substr(0,4);
+    var mes = fecha.substr(5,2);
+    var dia = fecha.substr(8,2);
+    var fechaCorrecta = dia + "/"+mes+"/"+año;
+    return fechaCorrecta;
+}
 function modificarDatos(event){
     // var index = celda.parentNode.parentNode.rowIndex;
 
     event.preventDefault();
     var fila = event.target.parentNode.childNodes;
     var sacoID = event.target.parentNode;
+    // console.log(sacoID);
+
     
     
     var nombre = fila[0].textContent;
-    var apellido = fila[1].textContent;
+    // var cuatrimestre = fila[1].textContent;
     var fecha = fila[2].textContent;
-    var sexo = fila[3].textContent;
+    // console.log(fecha);
+    var fechaCorrecta = invertirFechaDeServer(fecha);
+    
+    // console.log(dia);
+    // console.log(mes);
+    // console.log(año);
+    
+    // console.log(fechaCorrecta);
+    var turno = fila[3].textContent;
     var id = sacoID.getAttribute("id");
+    var cuatrimestre = sacoID.getAttribute("cuatrimestre");
     
 
     // personaAux.push(nombre,apellido,fecha,sexo,id);
     MostrarDivModificar();
-    imprimirRadioButton(sexo);
+    imprimirRadioButton(turno);
     // console.log("modificando" + nombre + " " + apellido  + " " + fecha + " " + sexo + id);
     
     // document.getElementById("boton").value = "Modificar";
     document.getElementById("nombre").value = nombre;
-    document.getElementById("apellido").value = apellido;
-    document.getElementById("fecha").value = fecha;
+    document.getElementById("cuatrimestre").value = cuatrimestre;
+    document.getElementById("cuatrimestre").disabled = true;
+    document.getElementById("fecha").value = fechaCorrecta;
     
-    // document.getElementById("sexo").value = sexo;
     
-
+    
     botonModificar.addEventListener("click",function(){
         nombreAux = $("nombre");
-        apellidoAux = $("apellido");
         fechaAux = $("fecha");
-        sexoAux = obtenerValoresRadioButton();
+        fechaAuxx = invertirFechaHtml(fechaAux);
+        turnoAux = obtenerValoresRadioButton();
         if (validarBoton()) {
-            ejecutarPostModificar(id,nombreAux,apellidoAux,fechaAux,sexoAux);
+            ejecutarPostModificar(id,nombreAux,cuatrimestre,fechaAuxx,turnoAux);
         }
     });
 
     botonEliminar.addEventListener("click",function(){
-        if (validarBoton()) {
-            ejecutarPostEliminar(id);
-        }
+        ejecutarPostEliminar(id);
     });
     
 }
 
 /**modifico la celda TR del html, recibo los datos a modificar */
-function modificarCelda(id,nombre,apellido,fecha,sexo){
+function modificarCelda(id,nombre,cuatrimestre,fecha,turno){
+    console.log(nombre);
     var tcuerpo = document.getElementById("tcuerpo");
     /**obtengo la lista de personas del html */
-    var listaPersonas = tcuerpo.parentNode.childNodes[3].childNodes;
     
     // console.log(tcuerpo.parentNode); /**todo el div tabla*/
     
@@ -318,7 +342,8 @@ function modificarCelda(id,nombre,apellido,fecha,sexo){
     // console.log(tcuerpo.parentNode.childNodes[3]); /**el tbody donde estan todos los datos es el [3] del parent node*/
     
     // console.log(tcuerpo.parentNode.childNodes[3].childNodes); /**uso el childNodes para obtener cada tr de la lista para despues recorrerlo*/
-
+    
+    var listaPersonas = tcuerpo.parentNode.childNodes[3].childNodes;
 
     /**recorro la lista */
     for (let index = 1; index < listaPersonas.length; index++) {
@@ -328,9 +353,9 @@ function modificarCelda(id,nombre,apellido,fecha,sexo){
         /**si el id de la lista coincide con el que id que viene por parametro, seteo los datos */
         if(listaPersonas[index].getAttribute("id") === id){
             listaPersonas[index].childNodes[0].textContent = nombre;
-            listaPersonas[index].childNodes[1].textContent = apellido;
+            listaPersonas[index].childNodes[1].textContent = cuatrimestre;
             listaPersonas[index].childNodes[2].textContent = fecha;
-            listaPersonas[index].childNodes[3].textContent = sexo;
+            listaPersonas[index].childNodes[3].textContent = turno;
             return true;
         }
     }
@@ -394,12 +419,42 @@ function eliminarCelda(id){
 function obtenerIDForm(){
     document.getElementById("")
 }
-function ejecutarPostModificar(id,nombre,apellido,fecha,sexo){
-    let objetoPersona = {"id" : id, "nombre" : nombre, "apellido" : apellido, "fecha" : fecha, "sexo" : sexo };
+function ejecutarPostModificar(id,nombre,cuatrimestre,fecha,turno){
+    
+    let objetoPersona = {"id" : id, "nombre" : nombre, "cuatrimestre" : cuatrimestre, "fechaFinal" : fecha, "turno" : turno };
                         
     var stringJson = JSON.stringify(objetoPersona);
     var sendPost = stringJson;
-    ajax("POST","http://localhost:3000/editar",respuestaPostModificar,sendPost)
+    ajax("POST","http://localhost:3000/editar",function(){
+        document.getElementById("loaderImage").hidden = false;
+    if(peticionHttp.readyState == 4){
+        if (peticionHttp.status == 200) {
+            /**cuando tengo respuesta de servidor lo casteo a obj json */
+            var respuesta  = peticionHttp.responseText;
+            var respuestaArray = JSON.parse(respuesta);
+            //console.log(respuestaArray);
+            if (respuestaArray.type != 'error') {
+
+                document.getElementById("loaderImage").hidden = true;
+                notificacion(true,true);
+                
+                /**tengo que modificar la celda que le hice doble click con los datos que me devolvio */
+                
+                modificarCelda(id,nombre,cuatrimestre,fecha,turno);
+            }
+            else{
+                console.log(respuestaArray.type);
+                document.getElementById("loaderImage").hidden = true;
+                notificacion(true,false);
+            }
+
+        }
+        else{
+            alert("error");
+            
+        }
+    }
+    },sendPost)
 
     document.getElementById("div").hidden = true;
 }
@@ -447,35 +502,36 @@ function respuestaPostEliminar(id){
     }
 }
 
-function respuestaPostModificar(){
-    document.getElementById("loaderImage").hidden = false;
-    if(peticionHttp.readyState == 4){
-        if (peticionHttp.status == 200) {
-            /**cuando tengo respuesta de servidor lo casteo a obj json */
-            var respuesta  = peticionHttp.responseText;
-            var respuestaArray = JSON.parse(respuesta);
-            //console.log(respuestaArray);
-            if (respuestaArray.type != 'error') {
+// function respuestaPostModificar(){
+//     document.getElementById("loaderImage").hidden = false;
+//     if(peticionHttp.readyState == 4){
+//         if (peticionHttp.status == 200) {
+//             /**cuando tengo respuesta de servidor lo casteo a obj json */
+//             var respuesta  = peticionHttp.responseText;
+//             var respuestaArray = JSON.parse(respuesta);
+//             //console.log(respuestaArray);
+//             if (respuestaArray.type != 'error') {
 
-                document.getElementById("loaderImage").hidden = true;
-                notificacion(true,true);
+//                 document.getElementById("loaderImage").hidden = true;
+//                 notificacion(true,true);
                 
-                /**tengo que modificar la celda que le hice doble click con los datos que me devolvio */
-                modificarCelda(respuestaArray.id,respuestaArray.nombre,respuestaArray.apellido,respuestaArray.fecha,respuestaArray.sexo);
-            }
-            else{
-                console.log(respuestaArray.type);
-                document.getElementById("loaderImage").hidden = true;
-                notificacion(true,false);
-            }
+//                 /**tengo que modificar la celda que le hice doble click con los datos que me devolvio */
+                
+//                 modificarCelda(respuestaArray.id,respuestaArray.nombre,respuestaArray.cuatrimestre,respuestaArray.fechaFinal,respuestaArray.turno);
+//             }
+//             else{
+//                 console.log(respuestaArray.type);
+//                 document.getElementById("loaderImage").hidden = true;
+//                 notificacion(true,false);
+//             }
 
-        }
-        else{
-            alert("error");
+//         }
+//         else{
+//             alert("error");
             
-        }
-    }
-}
+//         }
+//     }
+// }
 function $(id){
     return document.getElementById(id).value;
 }
