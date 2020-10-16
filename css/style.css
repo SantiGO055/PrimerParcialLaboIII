@@ -38,6 +38,7 @@
     }
     to{
         opacity: 1;
+        
     }
 }
 
@@ -124,22 +125,31 @@ h3{
 input{
     box-sizing: content-box;
 }
-input[type=text],input[type=radio]{
-    padding: 1% 30%;
-    margin: 2%;
+input[type=text],input[type=number]{
+    width: 100%;
+    padding: 1% 10%;
+    margin: 1%;
     text-align: center;
     border-radius: 3px;
     box-sizing: border-box; /*Todo lo que hace el border-box es cuando crece segun el padding y tamaño lo hace crecer hacia adentro*/
 }
-.radio{
-    margin: 3%;
-    padding: 0% 3%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+.input[type=radio]{
+    padding: 1% 10%;
+    margin: 1% 2%;
+    text-align: center;
+    border-radius: 3px;
+    box-sizing: border-box;
+    
 }
+/* .input[type=number]{
+    margin: 1%;
+    width: 100%;
+    text-align: center;
+    border-radius: 3px;
+} */
+
 input[type=date]{
+    width: 100%;
     padding: 1% 30%;
     margin: 2%;
     text-align: center;

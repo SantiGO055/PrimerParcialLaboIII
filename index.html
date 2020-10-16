@@ -29,7 +29,14 @@
                 <input name="nombre" class="inputSinError" id="nombre" type="text" tabindex="1"placeholder="Nombre..." />
                 
                 <label for="cuatrimestre">Cuatrimestre:</label>
-                <input name="cuatrimestre" class="inputSinError" id="cuatrimestre" type="number" tabindex="2" max="4" min="1" />
+                <select name="cuatrimestre" class="inputSinError" id="cuatrimestre" type="number" tabindex="2" max="4" min="1" >
+                    <option value="1">1</option> 
+                    <option value="2" selected>2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+
+                </select>
+                <!-- <input name="cuatrimestre" class="inputSinError" id="cuatrimestre" type="number" tabindex="2" max="4" min="1" /f> -->
                 
                 <label for="fecha">Fecha:</label>
                 <input name="fecha" class="inputSinError" id="fecha" type="date" tabindex="3" />
