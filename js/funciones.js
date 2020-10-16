@@ -125,12 +125,12 @@ function validarFecha(){
 }
 function validarSelect(){
     //TODO validar que haya uno seleccionado
-    var radio = document.getElementsByName('radiobutton');
-    if (radio[0].checked === true || radio[1].checked === true) {
+    var cuatri = document.getElementsById('cuatrimestre');
+    if (cuatri === true) {
         return true;
     }
     else{
-        document.getElementById("sexo").className = document.getElementById("sexo").className = " inputError";
+        document.getElementById("cuatri").className = document.getElementById("cuatri").className = " inputError";
         return false;
     }
 }
@@ -308,7 +308,7 @@ function modificarDatos(event){
     // document.getElementById("boton").value = "Modificar";
     document.getElementById("nombre").value = nombre;
     document.getElementById("cuatrimestre").value = cuatrimestre;
-    // document.getElementById("cuatrimestre").disabled = true;
+    document.getElementById("cuatrimestre").disabled = true;
     document.getElementById("fecha").value = fechaCorrecta;
     
     
