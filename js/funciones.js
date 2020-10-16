@@ -74,26 +74,6 @@ function validarNombre(){
     
 }
 
-// function validarCuatrimestre(){
-//     //TODO validar select
-//     cuatrimestreCheck = document.getElementById("cuatrimestre");
-    
-//     if (apellidoCheck.value != "") {
-//         if (apellidoCheck.value.length < 3 || apellidoCheck.value === "") {
-//             document.getElementById("apellido").className = document.getElementById("apellido").className = " inputError";
-//             return false;
-//         }
-//         else{
-//             document.getElementById("apellido").className = document.getElementById("apellido").className.replace(" inputError", "inputSinError");
-            
-//             return true;
-//         }
-//     }
-//     else{
-//         alert ("Ingrese apellido");
-//         return false;
-//     }
-// }
 function validarFecha(){
     
     var f = new Date();
@@ -112,40 +92,23 @@ function validarFecha(){
         
         return true;
     }
-    // console.log(fechaHoy);
-    // if (fechaHoy >= fechaAModif) {
-    //     retorno = true;
-    //     return retorno;
-    // }
-    // else{
-    //     retorno = false;
-    //     return retorno;
-    // }
     
 }
 function validarSelect(){
-    //TODO validar que haya uno seleccionado
-    var cuatri = document.getElementsById('cuatrimestre');
-    if (cuatri === true) {
+    
+    var cuatri = document.getElementById('cuatrimestre');
+    if (cuatri.selected === true) {
         return true;
     }
     else{
-        document.getElementById("cuatri").className = document.getElementById("cuatri").className = " inputError";
+        document.getElementById("cuatrimestre").className = document.getElementById("cuatrimestre").className = " inputError";
         return false;
     }
 }
-//#endregion
-
 
 function validarBoton(){
-    // if (validarNombre() && validarApellido() && validarFecha() && validarSexo()) {
-    //     return true;
-    // }
-    // else{
-    //     alert("Ingrese campos correctos");
-    //     return false;
-    // }
-    if (validarNombre() && validarFecha() ) {
+    
+    if (validarNombre() && validarFecha() && validarSelect()) {
         return true;
     }
     else{
@@ -154,6 +117,16 @@ function validarBoton(){
     }
 
 }
+
+/**
+ * No valido radio button por que siempre va a haber uno seleccionado
+ * 
+ */
+
+//#endregion
+
+
+
 
 
 function leerPersonaGet(){
@@ -308,6 +281,7 @@ function modificarDatos(event){
     // document.getElementById("boton").value = "Modificar";
     document.getElementById("nombre").value = nombre;
     document.getElementById("cuatrimestre").value = cuatrimestre;
+    document.getElementById("cuatrimestre").selected = true; /**la dejo seleccionada para realizar la validacion luego */
     document.getElementById("cuatrimestre").disabled = true;
     document.getElementById("fecha").value = fechaCorrecta;
     
@@ -433,7 +407,7 @@ function ejecutarPostModificar(id,nombre,cuatrimestre,fecha,turno){
             var respuesta  = peticionHttp.responseText;
             var respuestaArray = JSON.parse(respuesta);
             //console.log(respuestaArray);
-            if (respuestaArray.type != 'error') {
+            if (respuestaArray.type == 'ok') {
 
                 document.getElementById("loaderImage").hidden = true;
                 notificacion(true,true);
@@ -480,7 +454,7 @@ function respuestaPostEliminar(id){
             /**cuando tengo respuesta de servidor lo casteo a obj json */
             var respuesta  = peticionHttp.responseText;
             var respuestaArray = JSON.parse(respuesta);
-            if (respuestaArray.type != 'error') {
+            if (respuestaArray.type == 'ok') {
 
                 document.getElementById("loaderImage").hidden = true;
                 notificacion(false,true);
@@ -497,7 +471,6 @@ function respuestaPostEliminar(id){
         }
         else{
             alert("error");
-            
         }
     }
 }
